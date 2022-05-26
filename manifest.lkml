@@ -14,6 +14,6 @@ constant: DATASET_NAME {
   export: override_optional
 }
 constant: CAMPAIGN_MANAGER_ID {
-  value: "campaign_manager_360"
+  value: "looker"
   export: override_optional
 }
