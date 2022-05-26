@@ -1,19 +1,19 @@
 project_name: "cm360_customize"
 
 constant: CONNECTION_NAME {
-  value: "your_bq_connection_name"
+  value: "bigquery"
   export: override_optional
 }
 
 constant: PROJECT_NAME {
-  value: "your_bq_project_name"
+  value: "tsutomuueno-looker-training"
   export: override_optional
 }
 constant: DATASET_NAME {
-  value: "your_bq_campaign_manager_dataset"
+  value: "campaign_manager_360"
   export: override_optional
 }
 constant: CAMPAIGN_MANAGER_ID {
-  value: "your_campaign_manager_id"
+  value: "campaign_manager_360"
   export: override_optional
 }

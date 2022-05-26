@@ -1,20 +1,26 @@
-connection: "bigquery"
+connection: "@{CONNECTION_NAME}"
 
-include: "/views/*.view.lkml"                # include all views in the views/ folder in this project
-# include: "/**/*.view.lkml"                 # include all views in this project
-# include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+include: "/explores/**/*"
+include: "/dashboards/**/*.dashboard"
 
-# # Select the views that should be a part of this model,
-# # and define the joins that connect them together.
-#
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
-#   }
-#
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
-#   }
-# }
+map_layer: dma {
+  file: "/map_layers/dma.topojson"
+  property_key: "dma"
+}
+
+persist_for: "24 hours"
+
+label: "Block Campaign Manager 360"
+
+
+
+datagroup: new_day {
+  sql_trigger:
+    SELECT max(date(_PARTITIONTIME)) from ${impression.SQL_TABLE_NAME}
+    where _PARTITIONTIME >= TIMESTAMP(DATE_ADD(CURRENT_DATE, INTERVAL -60 DAY)) ;;
+}
+
+datagroup: bqml_datagroup {
+  sql_trigger: select CURRENT_DATE() ;;
+  max_cache_age: "24 hours"
+}
